@@ -1,11 +1,10 @@
-//פונקציה לשליחת הנתונים מעמוד ההרשמה לשרת
 const sendUserData = () => {
-    console.log(123)
+    
     let userName = document.getElementById('name').value;
     let userEmail = document.getElementById('email').value;
     let userPassword = document.getElementById('password').value;
 
-    //הגדרת בקשת פוסט לשרת
+    
     fetch('/signup', {
         headers: {
             'Accept': 'application/json',
@@ -34,7 +33,7 @@ const getSignUp = () => {
     window.location.href = '/signup';
 
 }
-//_____________________________________________________________
+
 
 
 const login = () => {
@@ -64,6 +63,4 @@ else{
 })
 .catch(err => console.log(err))
 }
-
-//_____________________________________________________________
 
