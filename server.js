@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('mongoose');
 let port = 3000;
-let dbUrl = 'mongodb+srv://michaelbriskin10:4upjf388@cluster0.25opv5f.mongodb.net/svshop'
+let dbUrl = URI
 db.connect(dbUrl).then(()=>console.log('db on'))
 
 app.use(bodyParser.urlencoded({extended:false}));
@@ -17,8 +17,6 @@ app.get('/signup', (req, res) => (
     ))
 
 app.get('/product', (req, res) => (
-    // TODO: fetch all products from db
-    // load products into html
     res.sendFile(__dirname + '/pages/product.html')
     ))
 
@@ -28,14 +26,14 @@ app.get('/buy', (req, res) => (
     res.sendFile(__dirname + '/pages/buy.html')
     ))
     
-    //סכמה של מוצרים
+   
     
     const productSchema = new db.Schema({
         productName: String,
         productPrice: Number
     })
     
-    //מודל ושם הקולקשן של מוצרים
+    
     
     const productList = db.model('product', productSchema)
 
@@ -72,11 +70,11 @@ const userSchema = new db.Schema({
 })
 
 
-// מודל ושם הקולקשן של משתמשים
+
 const userList = db.model('users', userSchema);
 
 
-// סכמה ומודל הזמנות
+
 const orderSchema = new db.Schema({
     userName: String,
     products: Array,
@@ -85,7 +83,7 @@ const orderSchema = new db.Schema({
 
 const orderList = db.model('orders', orderSchema)
 
-// הגדרת בקשת פוסט לפי הפץ' מהסקריפט
+
 app.post('/signup', async (req, res) => {
 console.log('im here');
 let temp = {
@@ -93,9 +91,9 @@ let temp = {
     userEmail: req.body.userEmail,
     userPassword: req.body.userPassword
 }
-// console.log(temp.userEmail);
+
 let checkEmail = await userList.findOne({userEmail:req.body.userEmail})
-// console.log(checkEmail);
+
 if (checkEmail == null) {
     userList.insertMany(temp)
     return res.json('user added')
@@ -116,7 +114,7 @@ app.post('/login', async (req, res) => {
     
     var user = await userList.findOne({
         userEmail:req.body.userEmail,
-        // userPassword:req.body.userPassword,
+        userPassword:req.body.userPassword,
     })
 
     if (user == null) {
