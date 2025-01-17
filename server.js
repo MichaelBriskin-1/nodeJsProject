@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('mongoose');
 let port = 3000;
-let dbUrl = URI
+let dbUrl = URL
 db.connect(dbUrl).then(()=>console.log('db on'))
 
 app.use(bodyParser.urlencoded({extended:false}));
